@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 const _primary = Color(0xFF167D8D);
 const _ink = Color(0xFF1B2326);
 const _line = Color(0xFFD9E2E4);
+const _muted = Color(0xFF6B7B80);
 
 ThemeData buildAppTheme() {
   final scheme =
@@ -75,6 +76,26 @@ ThemeData buildAppTheme() {
     bottomSheetTheme: const BottomSheetThemeData(
       backgroundColor: Colors.white,
       surfaceTintColor: Colors.transparent,
+    ),
+    navigationBarTheme: NavigationBarThemeData(
+      backgroundColor: Colors.white,
+      surfaceTintColor: Colors.transparent,
+      elevation: 0,
+      indicatorColor: Colors.transparent,
+      iconTheme: WidgetStateProperty.resolveWith(
+        (states) => IconThemeData(
+          color: states.contains(WidgetState.selected) ? _primary : _muted,
+        ),
+      ),
+      labelTextStyle: WidgetStateProperty.resolveWith(
+        (states) => TextStyle(
+          fontSize: 12,
+          fontWeight: states.contains(WidgetState.selected)
+              ? FontWeight.w700
+              : FontWeight.w500,
+          color: states.contains(WidgetState.selected) ? _primary : _muted,
+        ),
+      ),
     ),
     dividerTheme: const DividerThemeData(color: _line, space: 1),
   );
