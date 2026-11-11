@@ -3,8 +3,10 @@ import 'package:image_picker/image_picker.dart';
 
 import '../application/scan_receipt.dart';
 import '../domain/money.dart';
+import '../domain/price_trend.dart';
 import '../domain/receipt.dart';
 import 'format.dart';
+import 'price_changes_card.dart';
 import 'receipt_review_screen.dart';
 
 class ReceiptListScreen extends StatefulWidget {
@@ -214,9 +216,11 @@ class _ReceiptList extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final total = receipts.fold(Money.zero, (sum, r) => sum + r.total);
+    final changes = detectPriceChanges(receipts);
+    final headerCount = changes.isEmpty ? 1 : 2;
     return ListView.separated(
       padding: const EdgeInsets.fromLTRB(20, 8, 20, 96),
-      itemCount: receipts.length + 1,
+      itemCount: receipts.length + headerCount,
       separatorBuilder: (_, _) => const SizedBox(height: 12),
       itemBuilder: (context, index) {
         if (index == 0) {
@@ -245,7 +249,10 @@ class _ReceiptList extends StatelessWidget {
             ),
           );
         }
-        final receipt = receipts[index - 1];
+        if (index == 1 && changes.isNotEmpty) {
+          return PriceChangesCard(changes: changes);
+        }
+        final receipt = receipts[index - headerCount];
         return Card(
           child: ListTile(
             contentPadding: const EdgeInsets.fromLTRB(20, 8, 8, 8),
