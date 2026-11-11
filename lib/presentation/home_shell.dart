@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../application/scan_receipt.dart';
 import '../domain/receipt.dart';
+import '../domain/user_account.dart';
 import 'profile_screen.dart';
 import 'receipt_list_screen.dart';
 
@@ -10,10 +11,16 @@ class HomeShell extends StatefulWidget {
     super.key,
     required this.repository,
     required this.scanReceipt,
+    required this.account,
+    required this.onSignIn,
+    required this.onSignOut,
   });
 
   final ReceiptRepository repository;
   final ScanReceipt scanReceipt;
+  final UserAccount? account;
+  final VoidCallback onSignIn;
+  final VoidCallback onSignOut;
 
   @override
   State<HomeShell> createState() => _HomeShellState();
@@ -33,7 +40,11 @@ class _HomeShellState extends State<HomeShell> {
             repository: widget.repository,
             scanReceipt: widget.scanReceipt,
           ),
-          const ProfileScreen(),
+          ProfileScreen(
+            account: widget.account,
+            onSignIn: widget.onSignIn,
+            onSignOut: widget.onSignOut,
+          ),
         ],
       ),
       bottomNavigationBar: DecoratedBox(

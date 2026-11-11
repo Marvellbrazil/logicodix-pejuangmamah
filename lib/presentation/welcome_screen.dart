@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
 
 class WelcomeScreen extends StatelessWidget {
-  const WelcomeScreen({super.key, required this.onStart});
+  const WelcomeScreen({
+    super.key,
+    required this.onGoogle,
+    required this.onGuest,
+    required this.busy,
+  });
 
-  final VoidCallback onStart;
+  final VoidCallback onGoogle;
+  final VoidCallback onGuest;
+  final bool busy;
 
   @override
   Widget build(BuildContext context) {
@@ -14,84 +21,113 @@ class WelcomeScreen extends StatelessWidget {
         child: Center(
           child: ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: 520),
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(28, 24, 28, 24),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Spacer(),
-                  _FadeIn(
-                    delay: 0,
-                    child: Container(
-                      width: 72,
-                      height: 72,
-                      decoration: BoxDecoration(
-                        color: primary,
-                        borderRadius: BorderRadius.circular(22),
+            child: Column(
+              children: [
+                Expanded(
+                  child: SingleChildScrollView(
+                    padding: const EdgeInsets.fromLTRB(28, 32, 28, 16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        _FadeIn(
+                          delay: 0,
+                          child: Container(
+                            width: 72,
+                            height: 72,
+                            decoration: BoxDecoration(
+                              color: primary,
+                              borderRadius: BorderRadius.circular(22),
+                            ),
+                            child: const Icon(
+                              Icons.document_scanner_outlined,
+                              color: Colors.white,
+                              size: 36,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 28),
+                        _FadeIn(
+                          delay: 1,
+                          child: Text(
+                            'Nota jadi data,\nusaha jadi terarah.',
+                            style: theme.textTheme.headlineLarge?.copyWith(
+                              fontWeight: FontWeight.w800,
+                              height: 1.1,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 12),
+                        _FadeIn(
+                          delay: 2,
+                          child: Text(
+                            'Foto nota belanja, barang dan harganya masuk sendiri. Tanpa ngetik, tanpa buku catatan.',
+                            style: theme.textTheme.bodyLarge,
+                          ),
+                        ),
+                        const SizedBox(height: 32),
+                        const _FadeIn(
+                          delay: 3,
+                          child: _Point(
+                            icon: Icons.photo_camera_outlined,
+                            title: 'Scan nota',
+                            body: 'Dibaca langsung di HP, tanpa internet.',
+                          ),
+                        ),
+                        const SizedBox(height: 16),
+                        const _FadeIn(
+                          delay: 4,
+                          child: _Point(
+                            icon: Icons.account_balance_wallet_outlined,
+                            title: 'Pembukuan otomatis',
+                            body:
+                                'Total pengeluaran terhitung dari setiap nota.',
+                          ),
+                        ),
+                        const SizedBox(height: 16),
+                        const _FadeIn(
+                          delay: 5,
+                          child: _Point(
+                            icon: Icons.trending_up,
+                            title: 'Pantau harga',
+                            body:
+                                'Tahu saat harga barang langganan naik atau turun.',
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(28, 8, 28, 16),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      FilledButton.icon(
+                        onPressed: busy ? null : onGoogle,
+                        icon: busy
+                            ? const SizedBox(
+                                width: 18,
+                                height: 18,
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 2,
+                                  color: Colors.white,
+                                ),
+                              )
+                            : const Icon(Icons.login),
+                        label: const Text('Masuk dengan Google'),
                       ),
-                      child: const Icon(
-                        Icons.document_scanner_outlined,
-                        color: Colors.white,
-                        size: 36,
+                      const SizedBox(height: 8),
+                      SizedBox(
+                        width: double.infinity,
+                        child: TextButton(
+                          onPressed: busy ? null : onGuest,
+                          child: const Text('Lanjut sebagai tamu'),
+                        ),
                       ),
-                    ),
+                    ],
                   ),
-                  const SizedBox(height: 28),
-                  _FadeIn(
-                    delay: 1,
-                    child: Text(
-                      'Nota jadi data,\nusaha jadi terarah.',
-                      style: theme.textTheme.headlineLarge?.copyWith(
-                        fontWeight: FontWeight.w800,
-                        height: 1.1,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 12),
-                  _FadeIn(
-                    delay: 2,
-                    child: Text(
-                      'Foto nota belanja, barang dan harganya masuk sendiri. Tanpa ngetik, tanpa buku catatan.',
-                      style: theme.textTheme.bodyLarge,
-                    ),
-                  ),
-                  const SizedBox(height: 32),
-                  const _FadeIn(
-                    delay: 3,
-                    child: _Point(
-                      icon: Icons.photo_camera_outlined,
-                      title: 'Scan nota',
-                      body: 'Dibaca langsung di HP, tanpa internet.',
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  const _FadeIn(
-                    delay: 4,
-                    child: _Point(
-                      icon: Icons.account_balance_wallet_outlined,
-                      title: 'Pembukuan otomatis',
-                      body: 'Total pengeluaran terhitung dari setiap nota.',
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  const _FadeIn(
-                    delay: 5,
-                    child: _Point(
-                      icon: Icons.trending_up,
-                      title: 'Pantau harga',
-                      body: 'Tahu saat harga barang langganan naik atau turun.',
-                    ),
-                  ),
-                  const Spacer(),
-                  _FadeIn(
-                    delay: 6,
-                    child: FilledButton(
-                      onPressed: onStart,
-                      child: const Text('Mulai sekarang'),
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),

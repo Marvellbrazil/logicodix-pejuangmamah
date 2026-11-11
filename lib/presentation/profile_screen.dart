@@ -1,11 +1,24 @@
 import 'package:flutter/material.dart';
 
+import '../domain/user_account.dart';
+
 class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({super.key});
+  const ProfileScreen({
+    super.key,
+    required this.account,
+    required this.onSignIn,
+    required this.onSignOut,
+  });
+
+  final UserAccount? account;
+  final VoidCallback onSignIn;
+  final VoidCallback onSignOut;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final user = account;
+    final photo = user?.photoUrl;
     return Scaffold(
       appBar: AppBar(title: const Text('Profil')),
       body: ListView(
@@ -20,16 +33,20 @@ class ProfileScreen extends StatelessWidget {
                     radius: 28,
                     backgroundColor: theme.colorScheme.primary,
                     foregroundColor: Colors.white,
-                    child: const Icon(Icons.person_outline),
+                    backgroundImage: photo == null ? null : NetworkImage(photo),
+                    child: photo == null ? const Icon(Icons.person_outline) : null,
                   ),
                   const SizedBox(width: 16),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Tamu', style: theme.textTheme.titleMedium),
                         Text(
-                          'Data tersimpan di perangkat ini.',
+                          user?.name ?? 'Tamu',
+                          style: theme.textTheme.titleMedium,
+                        ),
+                        Text(
+                          user?.email ?? 'Data tersimpan di perangkat ini.',
                           style: theme.textTheme.bodySmall,
                         ),
                       ],
@@ -46,6 +63,26 @@ class ProfileScreen extends StatelessWidget {
             body:
                 'Foto nota dibaca langsung di HP. Nama barang dan harga disimpan di database lokal.',
           ),
+          const SizedBox(height: 24),
+          if (user == null)
+            FilledButton.icon(
+              onPressed: onSignIn,
+              icon: const Icon(Icons.login),
+              label: const Text('Masuk dengan Google'),
+            )
+          else
+            OutlinedButton.icon(
+              onPressed: onSignOut,
+              icon: const Icon(Icons.logout),
+              label: const Text('Keluar'),
+              style: OutlinedButton.styleFrom(
+                minimumSize: const Size.fromHeight(52),
+                foregroundColor: theme.colorScheme.primary,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(14),
+                ),
+              ),
+            ),
         ],
       ),
     );
