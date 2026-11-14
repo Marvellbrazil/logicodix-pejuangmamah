@@ -303,6 +303,11 @@ class EmptyState extends StatelessWidget {
   }
 }
 
+/// Benar hanya bila APK dibuat dengan GOOGLE_SERVER_CLIENT_ID. Tanpa itu
+/// tombol Google disembunyikan supaya tidak ada tombol yang tidak berfungsi.
+const bool googleSignInEnabled =
+    String.fromEnvironment('GOOGLE_SERVER_CLIENT_ID') != '';
+
 class GoogleMark extends StatelessWidget {
   const GoogleMark({super.key, this.size = 18});
 

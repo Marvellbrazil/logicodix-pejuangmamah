@@ -130,22 +130,25 @@ class _AuthScreenState extends State<AuthScreen> {
                         const SizedBox(height: Space.lg),
                       ],
 
-                      OutlinedButton.icon(
-                        onPressed: busy ? null : _google,
-                        icon: busy
-                            ? const SizedBox(
-                                width: 18,
-                                height: 18,
-                                child: CircularProgressIndicator(
-                                  strokeWidth: 2,
-                                ),
-                              )
-                            : const GoogleMark(size: 19),
-                        label: const Text('Lanjutkan dengan Google'),
-                      ),
-                      const SizedBox(height: Space.lg),
-                      const _OrDivider(),
-                      const SizedBox(height: Space.lg),
+                      // Tombol Google hanya tampil bila OAuth sudah dikonfigurasi.
+                      if (googleSignInEnabled) ...[
+                        OutlinedButton.icon(
+                          onPressed: busy ? null : _google,
+                          icon: busy
+                              ? const SizedBox(
+                                  width: 18,
+                                  height: 18,
+                                  child: CircularProgressIndicator(
+                                    strokeWidth: 2,
+                                  ),
+                                )
+                              : const GoogleMark(size: 19),
+                          label: const Text('Lanjutkan dengan Google'),
+                        ),
+                        const SizedBox(height: Space.lg),
+                        const _OrDivider(),
+                        const SizedBox(height: Space.lg),
+                      ],
 
                       if (_registering) ...[
                         TextFormField(

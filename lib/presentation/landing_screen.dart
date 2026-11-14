@@ -71,12 +71,14 @@ class LandingScreen extends StatelessWidget {
                     onPressed: onRegister,
                     child: const Text('Buat akun gratis'),
                   ),
-                  const SizedBox(height: Space.sm),
-                  OutlinedButton.icon(
-                    onPressed: () => onGoogle(UserRole.worker),
-                    icon: const GoogleMark(size: 18),
-                    label: const Text('Lanjutkan dengan Google'),
-                  ),
+                  if (googleSignInEnabled) ...[
+                    const SizedBox(height: Space.sm),
+                    OutlinedButton.icon(
+                      onPressed: () => onGoogle(UserRole.worker),
+                      icon: const GoogleMark(size: 18),
+                      label: const Text('Lanjutkan dengan Google'),
+                    ),
+                  ],
                   const SizedBox(height: Space.xs),
                   Center(
                     child: TextButton(
