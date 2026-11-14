@@ -371,6 +371,126 @@ class _GooglePainter extends CustomPainter {
   bool shouldRepaint(_GooglePainter oldDelegate) => false;
 }
 
+/// Logo Kerjaqueue: karcis antrean dengan huruf K dan potongan sobekan.
+class BrandMark extends StatelessWidget {
+  const BrandMark({super.key, this.size = 40});
+
+  final double size;
+
+  @override
+  Widget build(BuildContext context) {
+    return Semantics(
+      label: 'Logo Kerjaqueue',
+      image: true,
+      child: SizedBox(
+        width: size,
+        height: size,
+        child: CustomPaint(painter: _BrandMarkPainter()),
+      ),
+    );
+  }
+}
+
+class _BrandMarkPainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    final s = size.width;
+    final tearY = s * 0.64;
+    final notch = s * 0.09;
+
+    final body = Path()
+      ..addRRect(
+        RRect.fromRectAndRadius(
+          Rect.fromLTWH(0, 0, s, s),
+          Radius.circular(s * 0.2),
+        ),
+      );
+    final notches = Path()
+      ..addOval(Rect.fromCircle(center: Offset(0, tearY), radius: notch))
+      ..addOval(Rect.fromCircle(center: Offset(s, tearY), radius: notch));
+    canvas.drawPath(
+      Path.combine(PathOperation.difference, body, notches),
+      Paint()..color = Accent.teal,
+    );
+
+    final tear = Paint()
+      ..color = Accent.tealInk.withValues(alpha: 0.6)
+      ..strokeWidth = (s * 0.03).clamp(1.0, 3.0);
+    final dash = s * 0.07;
+    for (var x = notch + dash; x < s - notch - dash; x += dash * 2) {
+      canvas.drawLine(Offset(x, tearY), Offset(x + dash, tearY), tear);
+    }
+
+    final letter = TextPainter(
+      text: TextSpan(
+        text: 'K',
+        style: TextStyle(
+          fontSize: s * 0.44,
+          height: 1,
+          fontWeight: FontWeight.w900,
+          color: Accent.tealInk,
+        ),
+      ),
+      textDirection: TextDirection.ltr,
+    )..layout();
+    letter.paint(
+      canvas,
+      Offset((s - letter.width) / 2, (tearY - letter.height) / 2 + s * 0.02),
+    );
+
+    canvas.drawRRect(
+      RRect.fromRectAndRadius(
+        Rect.fromCenter(
+          center: Offset(s / 2, s * 0.81),
+          width: s * 0.36,
+          height: s * 0.07,
+        ),
+        Radius.circular(s * 0.035),
+      ),
+      Paint()..color = Accent.tealInk,
+    );
+  }
+
+  @override
+  bool shouldRepaint(_BrandMarkPainter oldDelegate) => false;
+}
+
+/// Garis sobekan karcis: pemisah putus-putus antara isi dan aksi sebuah kartu.
+class TicketDivider extends StatelessWidget {
+  const TicketDivider({super.key, this.color = Surfaces.line});
+
+  final Color color;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 1,
+      width: double.infinity,
+      child: CustomPaint(painter: _TicketDividerPainter(color)),
+    );
+  }
+}
+
+class _TicketDividerPainter extends CustomPainter {
+  const _TicketDividerPainter(this.color);
+
+  final Color color;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()
+      ..color = color
+      ..strokeWidth = 1;
+    for (double x = 0; x < size.width; x += 9) {
+      canvas.drawLine(Offset(x, 0.5), Offset(x + 5, 0.5), paint);
+    }
+  }
+
+  @override
+  bool shouldRepaint(_TicketDividerPainter oldDelegate) =>
+      oldDelegate.color != color;
+}
+
 class LoadingLine extends StatelessWidget {
   const LoadingLine({super.key});
 

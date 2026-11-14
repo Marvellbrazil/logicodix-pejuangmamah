@@ -313,23 +313,7 @@ class _Brand extends StatelessWidget {
           icon: const Icon(Icons.arrow_back_rounded),
         ),
         const SizedBox(width: Space.xs),
-        Container(
-          width: 36,
-          height: 36,
-          decoration: BoxDecoration(
-            gradient: const LinearGradient(
-              colors: [Accent.teal, Accent.tealDeep],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ),
-            borderRadius: Radii.mdAll,
-          ),
-          child: const Icon(
-            Icons.work_history_outlined,
-            color: Accent.tealInk,
-            size: 22,
-          ),
-        ),
+        const BrandMark(size: 36),
         const SizedBox(width: Space.md),
         Expanded(
           child: Column(

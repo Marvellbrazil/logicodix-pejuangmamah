@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Logo Kerjaqueue: karcis antrean dengan huruf K. Bentuknya sama dengan
+     BrandMark di lib/presentation/ui_kit.dart. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Badan karcis dengan dua lekukan sobekan di kiri dan kanan -->
+    <path
+        android:fillColor="@color/paper"
+        android:pathData="M32,30 H76 A6,6 0 0 1 82,36 V55 A5,5 0 0 0 82,65 V72 A6,6 0 0 1 76,78 H32 A6,6 0 0 1 26,72 V65 A5,5 0 0 0 26,55 V36 A6,6 0 0 1 32,30 Z" />
+
+    <!-- Huruf K -->
+    <path
+        android:strokeColor="@color/brand"
+        android:strokeWidth="5"
+        android:strokeLineCap="butt"
+        android:pathData="M46.5,35 V54" />
+    <path
+        android:strokeColor="@color/brand"
+        android:strokeWidth="5"
+        android:strokeLineCap="butt"
+        android:pathData="M60,35 L48,46" />
+    <path
+        android:strokeColor="@color/brand"
+        android:strokeWidth="5"
+        android:strokeLineCap="butt"
+        android:pathData="M51.5,43 L60,54" />
+
+    <!-- Garis sobekan -->
+    <path
+        android:fillColor="@color/brand"
+        android:fillAlpha="0.55"
+        android:pathData="M34,59.2 h5 v1.6 h-5 z M43,59.2 h5 v1.6 h-5 z M52,59.2 h5 v1.6 h-5 z M61,59.2 h5 v1.6 h-5 z M70,59.2 h4 v1.6 h-4 z" />
+
+    <!-- Nomor antrean di potongan bawah -->
+    <path
+        android:fillColor="@color/brand"
+        android:pathData="M45,68 h18 a2,2 0 0 1 0,4 h-18 a2,2 0 0 1 0,-4 z" />
+</vector>

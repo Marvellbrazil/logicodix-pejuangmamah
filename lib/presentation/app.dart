@@ -10,6 +10,7 @@ import 'auth_screen.dart';
 import 'home_shell.dart';
 import 'landing_screen.dart';
 import 'onboarding_screen.dart';
+import 'ui_kit.dart';
 
 class KerjaqueueApp extends StatelessWidget {
   const KerjaqueueApp({
@@ -114,23 +115,7 @@ class _BrandSplash extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Container(
-                width: 82,
-                height: 82,
-                decoration: BoxDecoration(
-                  gradient: const LinearGradient(
-                    colors: [Accent.teal, Accent.tealDeep],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                  ),
-                  borderRadius: BorderRadius.circular(26),
-                ),
-                child: const Icon(
-                  Icons.work_history_outlined,
-                  size: 42,
-                  color: Accent.tealInk,
-                ),
-              ),
+              const BrandMark(size: 82),
               const SizedBox(height: Space.xl),
               Text(
                 'Kerjaqueue',
