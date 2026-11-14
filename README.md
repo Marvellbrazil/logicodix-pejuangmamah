@@ -149,7 +149,7 @@ gunakan IP LAN komputer pengembang. Release publik wajib menggunakan HTTPS.
 
 | | |
 | --- | --- |
-| APK Android | ⚠️ ISI tautan unduhan APK |
+| APK Android | https://file.marvfiles.web.id/uploads/479e97da-cc9c-4ca1-a5d4-a193b5b03e98.apk |
 | Backend API | https://kerjaqueue-production.up.railway.app (healthcheck: `/health`) |
 
 ### Akun demonstrasi
