@@ -1,30 +1,32 @@
 import 'package:flutter/material.dart';
 
+// Arah visual "karcis antrean": kertas krem, tinta gelap, satu warna brand.
+// Alasan tiap keputusan ada di DESIGN.md.
 abstract final class Surfaces {
-  static const base = Color(0xFF070F11);
-  static const surface = Color(0xFF0B1416);
-  static const raised = Color(0xFF111D20);
-  static const overlay = Color(0xFF17262A);
-  static const line = Color(0xFF21363B);
-  static const lineSoft = Color(0xFF17272B);
+  static const base = Color(0xFFF6F1E7); // kertas karcis
+  static const surface = Color(0xFFFBF8F1);
+  static const raised = Color(0xFFFFFFFF); // kartu putih di atas krem
+  static const overlay = Color(0xFFEFE8DA);
+  static const line = Color(0xFFCFC5B2);
+  static const lineSoft = Color(0xFFE2DACA);
 }
 
 abstract final class Accent {
-  static const teal = Color(0xFF2EE6C5);
-  static const tealDeep = Color(0xFF0F8C7B);
-  static const tealInk = Color(0xFF04231F);
-  static const tealWash = Color(0x1F2EE6C5);
-  static const amber = Color(0xFFF5B33C);
-  static const amberWash = Color(0x1FF5B33C);
-  static const danger = Color(0xFFFF6B6B);
-  static const dangerWash = Color(0x1FFF6B6B);
-  static const success = Color(0xFF57D9A3);
+  static const teal = Color(0xFF0B5D52); // warna brand, cukup gelap untuk teks
+  static const tealDeep = Color(0xFF06443C);
+  static const tealInk = Color(0xFFFBF8F1); // teks di atas warna brand
+  static const tealWash = Color(0x1F0B5D52);
+  static const amber = Color(0xFF8A5200); // hanya untuk urgensi "Hari ini"
+  static const amberWash = Color(0x33F2B33C);
+  static const danger = Color(0xFFB3261E);
+  static const dangerWash = Color(0x1FB3261E);
+  static const success = Color(0xFF176A3C);
 }
 
 abstract final class TextTone {
-  static const primary = Color(0xFFE9F6F4);
-  static const secondary = Color(0xFF93ABAF);
-  static const muted = Color(0xFF64808A);
+  static const primary = Color(0xFF1D1B16); // tinta
+  static const secondary = Color(0xFF57514A);
+  static const muted = Color(0xFF6B645A);
 }
 
 abstract final class Space {
@@ -53,7 +55,7 @@ abstract final class Radii {
 
 ThemeData buildAppTheme() {
   const scheme = ColorScheme(
-    brightness: Brightness.dark,
+    brightness: Brightness.light,
     primary: Accent.teal,
     onPrimary: Accent.tealInk,
     primaryContainer: Accent.tealWash,
@@ -80,7 +82,7 @@ ThemeData buildAppTheme() {
     scrim: Color(0xFF000000),
     inverseSurface: TextTone.primary,
     onInverseSurface: Surfaces.base,
-    inversePrimary: Accent.tealDeep,
+    inversePrimary: Color(0xFF8FD9C8),
     surfaceTint: Colors.transparent,
   );
 
@@ -169,7 +171,7 @@ ThemeData buildAppTheme() {
 
   return ThemeData(
     useMaterial3: true,
-    brightness: Brightness.dark,
+    brightness: Brightness.light,
     colorScheme: scheme,
     scaffoldBackgroundColor: Surfaces.base,
     canvasColor: Surfaces.base,
@@ -312,8 +314,10 @@ ThemeData buildAppTheme() {
       shape: RoundedRectangleBorder(borderRadius: Radii.lgAll),
     ),
     snackBarTheme: SnackBarThemeData(
-      backgroundColor: Surfaces.overlay,
-      contentTextStyle: const TextStyle(color: TextTone.primary, fontSize: 14),
+      // Dibalik (tinta di atas kertas) supaya terpisah jelas dari layar terang.
+      backgroundColor: TextTone.primary,
+      actionTextColor: const Color(0xFF8FD9C8),
+      contentTextStyle: const TextStyle(color: Surfaces.surface, fontSize: 14),
       behavior: SnackBarBehavior.floating,
       shape: RoundedRectangleBorder(borderRadius: Radii.mdAll),
     ),

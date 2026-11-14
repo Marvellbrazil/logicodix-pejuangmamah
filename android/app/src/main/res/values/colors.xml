@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="launch_background">#167D8D</color>
+    <!-- Sama dengan token di lib/presentation/app_theme.dart (lihat DESIGN.md). -->
+    <color name="launch_background">#F6F1E7</color>
+    <color name="brand">#0B5D52</color>
+    <color name="paper">#FBF8F1</color>
 </resources>
