@@ -1,4 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Wajib untuk build release: aplikasi memanggil API Kerjaqueue lewat HTTPS. -->
+    <uses-permission android:name="android.permission.INTERNET"/>
     <application
         android:label="Kerjaqueue"
         android:name="${applicationName}"
