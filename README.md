@@ -4,6 +4,10 @@ Jaringan kerja harian untuk UMKM lokal. Pencari kerja membangun profil profesion
 menemukan pekerjaan yang sesuai, mengirim lamaran, lalu berkomunikasi langsung
 dengan pemberi kerja lewat pesan dalam aplikasi.
 
+---
+<img src="Screenshot 2026-11-14 235428.png">
+---
+
 > Logicodix 2026 — HIMTI UNESA · Subtema: Local MSME & Creative Economy
 
 | | |
