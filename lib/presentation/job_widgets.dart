@@ -51,20 +51,17 @@ class ScoreBadge extends StatelessWidget {
         borderRadius: Radii.smAll,
         border: Border.all(color: color.withValues(alpha: 0.32)),
       ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(Icons.bolt, size: compact ? 11 : 13, color: color),
-          const SizedBox(width: 2),
-          Text(
-            '${match.score}',
-            style: TextStyle(
-              fontSize: compact ? 11.5 : 13,
-              fontWeight: FontWeight.w800,
-              color: color,
-            ),
-          ),
-        ],
+      // Angka saja, seperti nomor di karcis antrean: ikon petir dibuang karena
+      // tidak menjelaskan apa pun tentang skor.
+      child: Text(
+        '${match.score}',
+        style: TextStyle(
+          fontSize: compact ? 13 : 16,
+          height: 1.1,
+          fontWeight: FontWeight.w900,
+          color: color,
+          fontFeatures: const [FontFeature.tabularFigures()],
+        ),
       ),
     );
   }
@@ -84,7 +81,6 @@ class UrgencyTag extends StatelessWidget {
         JobUrgency.thisWeek => TagTone.neutral,
         JobUrgency.flexible => TagTone.neutral,
       },
-      icon: urgency == JobUrgency.today ? Icons.bolt : null,
     );
   }
 }
@@ -197,26 +193,19 @@ class JobCard extends StatelessWidget {
             ),
             if (showScore && match.reasons.isNotEmpty) ...[
               const SizedBox(height: Space.md),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Icon(Icons.auto_awesome, size: 13, color: Accent.teal),
-                  const SizedBox(width: Space.xs + 2),
-                  Expanded(
-                    child: Text(
-                      match.reasons.first,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                        fontSize: 12.5,
-                        height: 1.4,
-                        color: Accent.teal,
-                      ),
-                    ),
-                  ),
-                ],
+              Text(
+                match.reasons.first,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(
+                  fontSize: 13,
+                  height: 1.4,
+                  color: TextTone.secondary,
+                ),
               ),
             ],
+            const SizedBox(height: Space.md),
+            const TicketDivider(),
             const SizedBox(height: Space.md),
             Row(
               children: [
@@ -236,16 +225,17 @@ class JobCard extends StatelessWidget {
                   )
                 else if (onApply != null)
                   SizedBox(
-                    height: 34,
+                    // 44 px: batas minimum area sentuh di HP.
+                    height: 44,
                     child: FilledButton(
                       onPressed: onApply,
                       style: FilledButton.styleFrom(
-                        minimumSize: const Size(0, 34),
+                        minimumSize: const Size(0, 44),
                         padding: const EdgeInsets.symmetric(
-                          horizontal: Space.lg,
+                          horizontal: Space.xl,
                         ),
                         textStyle: const TextStyle(
-                          fontSize: 12.5,
+                          fontSize: 14,
                           fontWeight: FontWeight.w700,
                         ),
                       ),

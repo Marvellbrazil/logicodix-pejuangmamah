@@ -93,7 +93,7 @@ class _HomeFeedScreenState extends State<HomeFeedScreen> {
         onPressed: widget.onOpenAssistant,
         backgroundColor: Accent.teal,
         foregroundColor: Accent.tealInk,
-        icon: const Icon(Icons.auto_awesome, size: 19),
+        icon: const Icon(Icons.forum_outlined, size: 19),
         label: const Text(
           'Asisten',
           style: TextStyle(fontWeight: FontWeight.w700),
@@ -113,23 +113,7 @@ class _HomeFeedScreenState extends State<HomeFeedScreen> {
               titleSpacing: Space.xl,
               title: Row(
                 children: [
-                  Container(
-                    width: 30,
-                    height: 30,
-                    decoration: BoxDecoration(
-                      gradient: const LinearGradient(
-                        colors: [Accent.teal, Accent.tealDeep],
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                      ),
-                      borderRadius: Radii.smAll,
-                    ),
-                    child: const Icon(
-                      Icons.work_history_outlined,
-                      size: 17,
-                      color: Accent.tealInk,
-                    ),
-                  ),
+                  const BrandMark(size: 30),
                   const SizedBox(width: Space.sm),
                   Text(
                     'Kerjaqueue',
@@ -330,57 +314,34 @@ class _QueueHero extends StatelessWidget {
     final top = matches.isEmpty ? null : matches.first;
     return Container(
       padding: const EdgeInsets.all(Space.lg),
+      // Karcis teratas antrean: satu-satunya blok berwarna brand di beranda,
+      // supaya jelas ini lowongan yang paling perlu dilihat dulu.
       decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [
-            Accent.teal.withValues(alpha: 0.16),
-            Accent.tealDeep.withValues(alpha: 0.06),
-          ],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
+        color: Accent.tealWash,
         borderRadius: Radii.lgAll,
-        border: Border.all(color: Accent.teal.withValues(alpha: 0.28)),
+        border: Border.all(color: Accent.teal.withValues(alpha: 0.35)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
-              Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 8,
-                  vertical: 3,
-                ),
-                decoration: BoxDecoration(
-                  color: Accent.teal.withValues(alpha: 0.18),
-                  borderRadius: Radii.pillAll,
-                ),
-                child: const Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(Icons.bolt, size: 12, color: Accent.teal),
-                    SizedBox(width: 3),
-                    Text(
-                      'ANTREAN HARI INI',
-                      style: TextStyle(
-                        fontSize: 10,
-                        fontWeight: FontWeight.w800,
-                        letterSpacing: 0.7,
-                        color: Accent.teal,
-                      ),
-                    ),
-                  ],
+              const Text(
+                'Antrean hari ini',
+                style: TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.w700,
+                  color: Accent.teal,
                 ),
               ),
               const Spacer(),
               if (matches.length > 1)
                 Text(
-                  '${matches.length} lain',
+                  '${matches.length - 1} lowongan lain',
                   style: const TextStyle(
-                    fontSize: 11.5,
+                    fontSize: 12.5,
                     fontWeight: FontWeight.w600,
-                    color: Accent.teal,
+                    color: TextTone.secondary,
                   ),
                 ),
             ],

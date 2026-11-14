@@ -26,32 +26,16 @@ class LandingScreen extends StatelessWidget {
           slivers: [
             SliverPadding(
               padding: const EdgeInsets.fromLTRB(
+                Space.xl,
                 Space.lg,
-                Space.lg,
-                Space.lg,
+                Space.xl,
                 Space.xxl,
               ),
               sliver: SliverList.list(
                 children: [
                   Row(
                     children: [
-                      Container(
-                        width: 40,
-                        height: 40,
-                        decoration: BoxDecoration(
-                          gradient: const LinearGradient(
-                            colors: [Accent.teal, Accent.tealDeep],
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight,
-                          ),
-                          borderRadius: Radii.mdAll,
-                        ),
-                        child: const Icon(
-                          Icons.work_history_outlined,
-                          size: 22,
-                          color: Accent.tealInk,
-                        ),
-                      ),
+                      const BrandMark(size: 40),
                       const SizedBox(width: Space.md),
                       Text(
                         'Kerjaqueue',
@@ -63,110 +47,65 @@ class LandingScreen extends StatelessWidget {
                       TextButton(onPressed: onLogin, child: const Text('Masuk')),
                     ],
                   ),
-                  const SizedBox(height: Space.xxl),
-                  Container(
-                    padding: const EdgeInsets.all(Space.xl),
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [
-                          Accent.teal.withValues(alpha: 0.16),
-                          Accent.tealDeep.withValues(alpha: 0.07),
-                          Surfaces.raised,
-                        ],
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                      ),
-                      borderRadius: Radii.xlAll,
-                      border: Border.all(
-                        color: Accent.teal.withValues(alpha: 0.25),
-                      ),
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Tag(
-                          label: 'KERJA LOKAL · PELUANG NYATA',
-                          tone: TagTone.teal,
-                          icon: Icons.bolt,
-                        ),
-                        const SizedBox(height: Space.lg),
-                        Text(
-                          'Kesempatan kerja\nada di dekatmu.',
-                          style: theme.textTheme.displaySmall?.copyWith(
-                            fontSize: 34,
-                            height: 1.1,
-                            letterSpacing: -1.1,
-                          ),
-                        ),
-                        const SizedBox(height: Space.md),
-                        Text(
-                          'Temukan pekerjaan harian dari UMKM sekitar. '
-                          'Lihat kecocokan, kirim lamaran, dan ngobrol langsung.',
-                          style: theme.textTheme.bodyLarge?.copyWith(
-                            color: TextTone.secondary,
-                          ),
-                        ),
-                        const SizedBox(height: Space.xl),
-                        FilledButton.icon(
-                          onPressed: onRegister,
-                          icon: const Icon(Icons.arrow_forward_rounded, size: 18),
-                          label: const Text('Buat akun gratis'),
-                        ),
-                        const SizedBox(height: Space.sm),
-                        OutlinedButton.icon(
-                          onPressed: () => onGoogle(UserRole.worker),
-                          icon: const GoogleMark(size: 18),
-                          label: const Text('Lanjutkan dengan Google'),
-                        ),
-                        const SizedBox(height: Space.md),
-                        Center(
-                          child: TextButton(
-                            onPressed: onLogin,
-                            child: const Text('Sudah punya akun? Masuk'),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: Space.xxl),
+                  const SizedBox(height: Space.xxxl),
                   Text(
-                    'Dari profil sampai percakapan,\nsatu tempat untuk mulai kerja.',
-                    style: theme.textTheme.headlineSmall,
+                    'Kesempatan kerja\nada di dekatmu.',
+                    style: theme.textTheme.displaySmall?.copyWith(
+                      fontSize: 38,
+                      height: 1.05,
+                      letterSpacing: -1.2,
+                    ),
                   ),
                   const SizedBox(height: Space.md),
                   Text(
-                    'Profil profesional sederhana membantu UMKM mengenalmu; '
-                    'kamu juga bisa melihat bagaimana pengalamanmu cocok dengan '
-                    'kebutuhan mereka.',
-                    style: theme.textTheme.bodyMedium,
+                    'Pekerjaan harian dari UMKM di sekitarmu, diurutkan dari '
+                    'yang paling butuh orang hari ini.',
+                    style: theme.textTheme.bodyLarge?.copyWith(
+                      color: TextTone.secondary,
+                    ),
+                  ),
+                  const SizedBox(height: Space.xl),
+                  const _SampleTicket(),
+                  const SizedBox(height: Space.xl),
+                  FilledButton(
+                    onPressed: onRegister,
+                    child: const Text('Buat akun gratis'),
+                  ),
+                  const SizedBox(height: Space.sm),
+                  OutlinedButton.icon(
+                    onPressed: () => onGoogle(UserRole.worker),
+                    icon: const GoogleMark(size: 18),
+                    label: const Text('Lanjutkan dengan Google'),
+                  ),
+                  const SizedBox(height: Space.xs),
+                  Center(
+                    child: TextButton(
+                      onPressed: onLogin,
+                      child: const Text('Sudah punya akun? Masuk'),
+                    ),
+                  ),
+                  const SizedBox(height: Space.xxl),
+                  const TicketDivider(),
+                  const SizedBox(height: Space.xl),
+                  const _RoleLine(
+                    role: 'Cari kerja',
+                    body:
+                        'Lihat skor kecocokan beserta alasannya, lamar, lalu '
+                        'langsung ngobrol dengan pemilik usaha.',
                   ),
                   const SizedBox(height: Space.lg),
-                  const _FeatureRow(
-                    number: '01',
-                    icon: Icons.tune_rounded,
-                    title: 'Kecocokan yang transparan',
-                    body: 'Skor keahlian, upah, jarak, dan jadwal beserta alasannya.',
-                  ),
-                  const SizedBox(height: Space.sm),
-                  const _FeatureRow(
-                    number: '02',
-                    icon: Icons.mark_chat_unread_outlined,
-                    title: 'Lamaran, lanjut ngobrol',
-                    body: 'Percakapan langsung terbuka saat kamu melamar pekerjaan.',
-                  ),
-                  const SizedBox(height: Space.sm),
-                  const _FeatureRow(
-                    number: '03',
-                    icon: Icons.storefront_outlined,
-                    title: 'Dibangun untuk UMKM lokal',
-                    body: 'Pemberi kerja pasang shift singkat dan kelola pelamar.',
+                  const _RoleLine(
+                    role: 'Butuh pekerja',
+                    body:
+                        'Pasang shift singkat, lihat siapa yang melamar, dan '
+                        'tentukan statusnya dari satu layar.',
                   ),
                   const SizedBox(height: Space.xxl),
                   Center(
                     child: Text(
                       'Kerjaqueue · Kerja dekat, peluang terbuka.',
                       textAlign: TextAlign.center,
-                      style: theme.textTheme.labelSmall,
+                      style: theme.textTheme.bodySmall,
                     ),
                   ),
                 ],
@@ -179,57 +118,127 @@ class LandingScreen extends StatelessWidget {
   }
 }
 
-class _FeatureRow extends StatelessWidget {
-  const _FeatureRow({
-    required this.number,
-    required this.icon,
-    required this.title,
-    required this.body,
-  });
+/// Contoh karcis lowongan: memperlihatkan isi aplikasi sebelum pengguna daftar.
+/// Datanya contoh dan diberi label, bukan lowongan sungguhan.
+class _SampleTicket extends StatelessWidget {
+  const _SampleTicket();
 
-  final String number;
-  final IconData icon;
-  final String title;
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return Semantics(
+      label:
+          'Contoh lowongan: Barista shift pagi di Kopi Jempol, Rungkut, '
+          'seratus dua puluh ribu rupiah per hari, skor kecocokan 96.',
+      child: ExcludeSemantics(
+        child: Container(
+          decoration: BoxDecoration(
+            color: Surfaces.raised,
+            borderRadius: Radii.lgAll,
+            border: Border.all(color: Surfaces.line),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.fromLTRB(
+                  Space.lg,
+                  Space.lg,
+                  Space.lg,
+                  Space.md,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('Contoh lowongan', style: theme.textTheme.bodySmall),
+                    const SizedBox(height: Space.xs),
+                    Text(
+                      'Barista shift pagi',
+                      style: theme.textTheme.titleLarge,
+                    ),
+                    const SizedBox(height: 2),
+                    Text(
+                      'Kopi Jempol · Rungkut',
+                      style: theme.textTheme.bodyMedium,
+                    ),
+                    const SizedBox(height: Space.md),
+                    const Wrap(
+                      spacing: Space.sm,
+                      runSpacing: Space.sm,
+                      children: [
+                        Tag(label: 'Rp120rb per hari', tone: TagTone.teal),
+                        Tag(label: '07.00 sampai 12.00'),
+                        Tag(label: 'Hari ini', tone: TagTone.amber),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              const TicketDivider(),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(
+                  Space.lg,
+                  Space.md,
+                  Space.lg,
+                  Space.lg,
+                ),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const Text(
+                      '96',
+                      style: TextStyle(
+                        fontSize: 40,
+                        height: 1,
+                        fontWeight: FontWeight.w900,
+                        letterSpacing: -1.5,
+                        color: Accent.teal,
+                        fontFeatures: [FontFeature.tabularFigures()],
+                      ),
+                    ),
+                    const SizedBox(width: Space.md),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Skor kecocokan',
+                            style: theme.textTheme.titleSmall,
+                          ),
+                          Text(
+                            'Keahlian Barista dibutuhkan, jarak 1,2 km.',
+                            style: theme.textTheme.bodySmall,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _RoleLine extends StatelessWidget {
+  const _RoleLine({required this.role, required this.body});
+
+  final String role;
   final String body;
 
   @override
   Widget build(BuildContext context) {
-    return Panel(
-      padding: const EdgeInsets.all(Space.md),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            number,
-            style: const TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.w800,
-              color: Accent.teal,
-            ),
-          ),
-          const SizedBox(width: Space.md),
-          Container(
-            width: 38,
-            height: 38,
-            decoration: BoxDecoration(
-              color: Accent.tealWash,
-              borderRadius: Radii.mdAll,
-            ),
-            child: Icon(icon, size: 19, color: Accent.teal),
-          ),
-          const SizedBox(width: Space.md),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(title, style: Theme.of(context).textTheme.titleSmall),
-                const SizedBox(height: 3),
-                Text(body, style: Theme.of(context).textTheme.bodySmall),
-              ],
-            ),
-          ),
-        ],
-      ),
+    final theme = Theme.of(context);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(role, style: theme.textTheme.titleMedium),
+        const SizedBox(height: Space.xs),
+        Text(body, style: theme.textTheme.bodyMedium),
+      ],
     );
   }
 }

@@ -302,16 +302,8 @@ class _Cover extends StatelessWidget {
     return Stack(
       clipBehavior: Clip.none,
       children: [
-        Container(
-          height: 108,
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              colors: [Accent.tealDeep, Color(0xFF0A3A44), Surfaces.surface],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ),
-          ),
-        ),
+        // Pita warna brand polos; gradien dibuang karena tidak membawa makna.
+        Container(height: 108, color: Accent.teal),
         Padding(
           padding: const EdgeInsets.fromLTRB(Space.lg, 70, Space.lg, 0),
           child: Row(
@@ -319,6 +311,7 @@ class _Cover extends StatelessWidget {
             children: [
               Container(
                 decoration: BoxDecoration(
+                  color: Surfaces.base,
                   borderRadius: BorderRadius.circular(20),
                   border: Border.all(color: Surfaces.base, width: 3),
                 ),
@@ -349,9 +342,11 @@ class _Cover extends StatelessWidget {
                           ),
                           if (profile.isEmployer) ...[
                             const SizedBox(width: Space.xs + 2),
+                            // Bukan centang "terverifikasi": aplikasi belum
+                            // memverifikasi usaha, jadi ikonnya hanya penanda peran.
                             const Icon(
-                              Icons.verified,
-                              size: 15,
+                              Icons.storefront_outlined,
+                              size: 16,
                               color: Accent.teal,
                             ),
                           ],

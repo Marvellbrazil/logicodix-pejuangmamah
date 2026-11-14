@@ -526,7 +526,7 @@ void main() {
     expect(find.text('Kerjaqueue'), findsOneWidget);
     expect(find.text('Halo, Rina'), findsOneWidget);
     expect(find.text('Barista shift pagi'), findsWidgets);
-    expect(find.text('ANTREAN HARI INI'), findsOneWidget);
+    expect(find.text('Antrean hari ini'), findsOneWidget);
     expect(harness.tokens.value, 'token-1');
   });
 

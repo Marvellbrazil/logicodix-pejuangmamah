@@ -99,7 +99,7 @@ class _AssistantScreenState extends State<AssistantScreen> {
           children: [
             Row(
               children: [
-                const Icon(Icons.auto_awesome, size: 17, color: Accent.teal),
+                const Icon(Icons.forum_outlined, size: 17, color: Accent.teal),
                 const SizedBox(width: Space.sm),
                 Text('Asisten Kerjaqueue', style: theme.textTheme.titleMedium),
               ],
