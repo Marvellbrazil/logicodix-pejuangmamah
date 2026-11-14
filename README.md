@@ -17,8 +17,10 @@ dengan pemberi kerja lewat pesan dalam aplikasi.
 
 | Nama | Peran |
 | --- | --- |
-| ⚠️ ISI nama Ketua Tim | Ketua Tim · ⚠️ ISI peran |
-| ⚠️ ISI nama anggota | ⚠️ ISI peran |
+| Marvello Faisal | Ketua Tim · Lead Developer |
+| Arya Mada Hastasurya | Mobile App Developer |
+| Rafli Akhdan Fareza | Copywriter |
+| Zulfan Maulana Ahmad | UI/UX Designer |
 
 ## Masalah
 
