@@ -4,8 +4,68 @@ Jaringan kerja harian untuk UMKM lokal. Pencari kerja membangun profil profesion
 menemukan pekerjaan yang sesuai, mengirim lamaran, lalu berkomunikasi langsung
 dengan pemberi kerja lewat pesan dalam aplikasi.
 
-> Logicodix 2026 — HIMTI UNESA · Subtheme: Local MSME & Creative Economy
-> Tim: Pejuang Mamah
+> Logicodix 2026 — HIMTI UNESA · Subtema: Local MSME & Creative Economy
+
+| | |
+| --- | --- |
+| Nama tim | Pejuang Mamah |
+| Kategori | **Mobile** (Android) |
+| Nama aplikasi | Kerjaqueue |
+| Subtema | Local MSME & Creative Economy |
+
+## Tim
+
+| Nama | Peran |
+| --- | --- |
+| ⚠️ ISI nama Ketua Tim | Ketua Tim · ⚠️ ISI peran |
+| ⚠️ ISI nama anggota | ⚠️ ISI peran |
+
+## Masalah
+
+UMKM lokal (warung kopi, bengkel, konveksi, laundry, katering) sering butuh tenaga
+tambahan mendadak untuk satu shift, satu hari, atau satu pekerjaan borongan. Selama ini
+pencarian biasanya lewat kenalan atau grup WhatsApp: lambat, tidak terdata, dan pemilik
+usaha sulit menilai apakah calon pekerja punya keahlian dan jadwal yang cocok.
+Di sisi lain, pencari kerja harian tidak punya satu tempat untuk melihat pekerjaan di
+sekitarnya yang sesuai keahlian, jarak, upah minimum, dan jam luangnya.
+
+## Solusi
+
+Kerjaqueue mendigitalkan proses rekrutmen harian UMKM: pemilik usaha memasang
+lowongan dengan tingkat urgensi (hari ini / minggu ini / fleksibel), pencari kerja
+melihat feed yang diurutkan berdasarkan urgensi dan **skor kecocokan yang menjelaskan
+alasannya**, melamar dengan satu ketukan, lalu langsung berbicara dengan pemilik usaha
+lewat chat dalam aplikasi. Asisten AI membantu pencari kerja memilih lowongan.
+
+## Target pengguna
+
+- **Pemberi kerja:** pemilik UMKM lokal yang butuh pekerja harian atau borongan.
+- **Pencari kerja:** pekerja harian, pelajar/mahasiswa yang mencari kerja paruh waktu,
+  dan warga sekitar yang ingin penghasilan tambahan.
+
+## Fitur yang sudah berjalan
+
+- Daftar dan masuk dengan email + kata sandi; Google Sign-In (perlu konfigurasi OAuth).
+- Onboarding profil: nama, headline, kecamatan, keahlian, pengalaman, upah minimum,
+  jam kerja, dan jarak maksimal.
+- Beranda pencari kerja: lowongan diurutkan berdasarkan urgensi dan skor kecocokan
+  0–100 (keahlian, jarak, upah, jadwal) beserta alasan dan kekurangannya.
+- Pencarian lowongan dan profil orang; halaman profil publik.
+- Pemberi kerja: pasang lowongan, tandai terisi, hapus, lihat daftar pelamar beserta
+  kontaknya, dan ubah status lamaran (dilihat → wawancara → diterima/ditolak).
+- Pencari kerja: daftar lamaran beserta statusnya dan tarik lamaran.
+- Chat privat pekerja–pemberi kerja yang dibuat otomatis saat melamar, dengan
+  penanda pesan belum dibaca.
+- Asisten AI (Z.ai) dengan jawaban lokal berbasis skor kecocokan saat API tidak tersedia.
+
+## Teknologi
+
+| Bagian | Teknologi |
+| --- | --- |
+| Aplikasi mobile | Flutter (Dart), `http`, `flutter_secure_storage`, `google_sign_in` |
+| Backend | Node.js 24, Hono, `@hono/node-server`, `zod` (validasi), `jose` (JWT) |
+| Database | SQLite melalui modul bawaan `node:sqlite` |
+| Layanan pihak ketiga | Z.ai Chat Completions API (`glm-4.7-flash`), Google OAuth 2.0 / JWKS |
 
 ## Arah produk
 
@@ -41,6 +101,23 @@ Flutter app ── HTTPS/JSON + Bearer JWT ──► backend (Hono + Node 24)
 Skor kecocokan tetap dihitung di `lib/domain/match.dart`, jadi algoritme tunggal
 untuk aplikasi dan bisa diuji tanpa emulator. API mengirim data lowongan mentah.
 
+### Alur data utama
+
+```mermaid
+flowchart LR
+  E[Pemberi kerja] -- pasang lowongan --> API
+  W[Pencari kerja] -- login / profil --> API
+  API[(Backend Hono)] -- simpan --> DB[(SQLite)]
+  API -- daftar lowongan --> APP[Aplikasi Flutter]
+  APP -- hitung skor kecocokan di perangkat --> W
+  W -- lamar --> API
+  API -- buat lamaran + chat otomatis --> DB
+  E -- ubah status lamaran / balas chat --> API
+  W -- tanya Asisten --> API
+  API -- prompt + ringkasan profil + 5 lowongan teratas --> ZAI[Z.ai API]
+  ZAI -- jawaban --> API
+```
+
 ## Menjalankan
 
 Terminal 1 — API:
@@ -66,17 +143,25 @@ flutter run --dart-define=API_BASE_URL=http://10.0.2.2:8080
 `10.0.2.2` adalah alamat host dari Android Emulator. Untuk perangkat Android fisik,
 gunakan IP LAN komputer pengembang. Release publik wajib menggunakan HTTPS.
 
-### Akun demo lokal
+### Akses untuk juri
 
-Saat database baru masih kosong, backend mengisi lowongan contoh dan dua akun:
-
-| Email | Peran |
+| | |
 | --- | --- |
-| `pencari@kerjaqueue.local` | pencari kerja |
-| `pemberi@kerjaqueue.local` | pemberi kerja |
+| APK Android | ⚠️ ISI tautan unduhan APK |
+| Backend API | ⚠️ ISI `https://...` (healthcheck: `/health`) |
 
-Kata sandi diambil dari `DEMO_PASSWORD`. Akun contoh hanya cocok untuk demo lokal;
-matikan `SEED` dan kosongkan `DEMO_PASSWORD` untuk deploy publik.
+### Akun demonstrasi
+
+Saat database baru masih kosong, backend mengisi lowongan contoh dan dua akun demo:
+
+| Email | Kata sandi | Peran |
+| --- | --- | --- |
+| `pencari@kerjaqueue.local` | ⚠️ ISI | pencari kerja |
+| `pemberi@kerjaqueue.local` | ⚠️ ISI | pemberi kerja |
+
+Kata sandi kedua akun diambil dari `DEMO_PASSWORD` di server. Untuk server penilaian,
+biarkan `SEED=true` dan pakai `DEMO_PASSWORD` baru yang hanya dipakai untuk akun demo
+ini. Setelah penilaian selesai, matikan `SEED` dan hapus akun demo.
 
 ### Google Sign-In
 
@@ -152,20 +237,40 @@ onboarding, feed, lamar, chat, asisten lokal, profil, serta sign-out.
 - Belum ada push notification, moderation/reporting, verifikasi usaha/identitas,
   upload avatar, atau perlindungan spam lanjutan.
 
-## Tim
+## Penggunaan AI
 
-| Nama | Peran |
-| --- | --- |
-| _isi_ | _isi_ |
-| _isi_ | _isi_ |
+**Di dalam produk**
 
-## Kredit
+| Layanan / model | Bagian produk | Data yang dikirim |
+| --- | --- | --- |
+| Z.ai Chat Completions, model `glm-4.7-flash` | Tab Asisten: menjawab pertanyaan pencari kerja tentang lowongan yang cocok | Pertanyaan, riwayat percakapan, nama, keahlian, kecamatan, upah minimum, dan 5 lowongan teratas. Email, nomor telepon, dan foto tidak dikirim. |
 
-- Ikon: Material Symbols (Apache 2.0)
-- API Z.ai: Z.ai
-- Google Sign-In: Google
-- Hono: Hono
-- Font: bawaan Flutter
+Panggilan ke Z.ai hanya dilakukan oleh backend; API key tidak ada di aplikasi. Jika
+Z.ai tidak tersedia atau kuota harian habis, aplikasi memberi jawaban lokal yang
+dihitung dari skor kecocokan di `lib/application/ask_assistant.dart`.
+
+**Dalam proses pengembangan**
+
+- Claude (Anthropic) melalui Claude Code dipakai untuk review kode, perbaikan izin
+  `INTERNET` Android dan dashboard pemberi kerja, serta penyusunan README ini.
+- ⚠️ ISI alat AI lain yang dipakai tim (nama alat dan bagian yang dibantu), atau hapus
+  baris ini jika tidak ada.
+
+Seluruh kode hasil bantuan AI ditinjau dan menjadi tanggung jawab tim.
+
+## Kredit dan atribusi
+
+| Komponen | Sumber | Lisensi |
+| --- | --- | --- |
+| Flutter, Material Icons | Google | BSD-3-Clause / Apache 2.0 |
+| `http`, `flutter_secure_storage`, `google_sign_in` | pub.dev | BSD-3-Clause |
+| Hono, `@hono/node-server` | honojs | MIT |
+| `zod` | colinhacks | MIT |
+| `jose` | panva | MIT |
+| Z.ai API | Z.ai | Ketentuan layanan Z.ai |
+| Google Sign-In / OAuth 2.0 | Google | Ketentuan layanan Google |
+| Font | bawaan Flutter | — |
+| Data lowongan contoh | dibuat tim (fiktif) | — |
 
 ## Lisensi
 
