@@ -1,0 +1,7 @@
+name = "kerjaqueue-assistant"
+main = "index.js"
+compatibility_date = "2026-11-01"
+
+# Secrets are configured separately, never committed here:
+#   wrangler secret put ZAI_API_KEY
+#   wrangler secret put CLIENT_KEY

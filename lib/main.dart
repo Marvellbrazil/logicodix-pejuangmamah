@@ -1,30 +1,47 @@
 import 'package:flutter/material.dart';
-import 'package:path/path.dart' as p;
-import 'package:sqflite/sqflite.dart';
 
-import 'application/receipt_parser.dart';
-import 'application/scan_receipt.dart';
-import 'infrastructure/google_auth_repository.dart';
-import 'infrastructure/ml_kit_receipt_text_reader.dart';
-import 'infrastructure/sqlite_receipt_repository.dart';
+import 'application/ask_assistant.dart';
+import 'infrastructure/api_assistant.dart';
+import 'infrastructure/api_auth.dart';
+import 'infrastructure/api_chats.dart';
+import 'infrastructure/api_client.dart';
+import 'infrastructure/api_jobs.dart';
+import 'infrastructure/api_profile.dart';
+import 'infrastructure/google_token_provider.dart';
+import 'infrastructure/secure_token_store.dart';
 import 'presentation/app.dart';
+import 'presentation/app_state.dart';
+
+const _apiBaseUrl = String.fromEnvironment(
+  'API_BASE_URL',
+  defaultValue: 'http://10.0.2.2:8080',
+);
 
 const _googleServerClientId = String.fromEnvironment(
   'GOOGLE_SERVER_CLIENT_ID',
-  defaultValue:
-      '162964532692-lal2n4ttfdt7ffh5koj4qbrssvbnh9fn.apps.googleusercontent.com',
+  defaultValue: '',
 );
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  final db = await SqliteReceiptRepository.open(
-    p.join(await getDatabasesPath(), 'pejuangmamah.db'),
-  );
+
+  final client = ApiClient(baseUrl: _apiBaseUrl);
+  final google = GoogleTokenProvider(serverClientId: _googleServerClientId);
+  final tokens = const SecureTokenStore();
+
   runApp(
-    PejuangMamahApp(
-      repository: SqliteReceiptRepository(db),
-      scanReceipt: ScanReceipt(MlKitReceiptTextReader(), ReceiptParser()),
-      auth: GoogleAuthRepository(serverClientId: _googleServerClientId),
+    KerjaqueueApp(
+      state: AppState(
+        client: client,
+        auth: ApiAuth(client),
+        profiles: ApiProfile(client),
+        jobs: ApiJobs(client),
+        applications: ApiJobs(client),
+        chats: ApiChats(client),
+        tokens: tokens,
+      ),
+      askAssistant: AskAssistant(ApiAssistantGateway(client)),
+      google: google,
     ),
   );
 }
