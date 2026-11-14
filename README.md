@@ -158,8 +158,8 @@ Saat database baru masih kosong, backend mengisi lowongan contoh dan dua akun de
 
 | Email | Kata sandi | Peran |
 | --- | --- | --- |
-| `pencari@kerjaqueue.local` | `Kerja-7ndUfDGD!` | pencari kerja |
-| `pemberi@kerjaqueue.local` | `Kerja-7ndUfDGD!` | pemberi kerja |
+| `pencari@kerjaqueue.local` | `kerjaqueue123` | pencari kerja |
+| `pemberi@kerjaqueue.local` | `kerjaqueue123` | pemberi kerja |
 
 Kata sandi kedua akun diambil dari `DEMO_PASSWORD` di server. Untuk server penilaian,
 biarkan `SEED=true` dan pakai `DEMO_PASSWORD` baru yang hanya dipakai untuk akun demo
