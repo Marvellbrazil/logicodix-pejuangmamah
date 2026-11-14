@@ -49,3 +49,12 @@ app.*.map.json
 
 # Secrets
 .env
+
+# Local development artifacts
+backend/node_modules/
+backend/data/
+backend/.env
+.emulator-home.xml
+.visible-ui.xml
+.emulator-home.xml
+.visible-ui.xml

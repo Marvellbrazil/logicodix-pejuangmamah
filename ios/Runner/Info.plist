@@ -7,7 +7,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>Pejuangmamah</string>
+	<string>Kerjaqueue</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -15,9 +15,9 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>NSCameraUsageDescription</key>
-	<string>Kamera dipakai untuk memotret nota belanja.</string>
+	<string>Kamera dipakai untuk memotret bukti pekerjaan.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Galeri dipakai untuk memilih foto nota belanja.</string>
+	<string>Galeri dipakai untuk memilih foto bukti pekerjaan.</string>
 	<key>CFBundleName</key>
 	<string>pejuangmamah</string>
 	<key>CFBundlePackageType</key>
