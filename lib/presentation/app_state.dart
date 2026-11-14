@@ -84,7 +84,8 @@ class AppState extends ChangeNotifier {
   List<Match> get employerJobs {
     final current = _profile;
     if (current == null) return const [];
-    return Match.rank(_feed, current, includeFilled: true);
+    final own = _feed.where((job) => job.employerId == current.id).toList();
+    return Match.rank(own, current, includeFilled: true);
   }
 
   void selectTab(int index) {
@@ -225,7 +226,7 @@ class AppState extends ChangeNotifier {
     String q = '',
     String category = '',
     JobUrgency? urgency,
-    bool mine = false,
+    bool? mine,
   }) async {
     final token = _token;
     if (token == null) return;
@@ -235,7 +236,8 @@ class AppState extends ChangeNotifier {
         q: q,
         category: category,
         urgency: urgency,
-        mine: mine,
+        // Pemberi kerja hanya mengelola lowongannya sendiri di beranda.
+        mine: mine ?? (_profile?.isEmployer ?? false),
       );
       _feed = feed.jobs;
       _categories = feed.categories;
