@@ -67,7 +67,7 @@ lewat chat dalam aplikasi. Asisten AI membantu pencari kerja memilih lowongan.
 | Aplikasi mobile | Flutter (Dart), `http`, `flutter_secure_storage`, `google_sign_in` |
 | Backend | Node.js 24, Hono, `@hono/node-server`, `zod` (validasi), `jose` (JWT) |
 | Database | SQLite melalui modul bawaan `node:sqlite` |
-| Layanan pihak ketiga | Z.ai Chat Completions API (`glm-4.7-flash`), Google OAuth 2.0 / JWKS |
+| Layanan pihak ketiga | Z.ai Chat Completions API (`glm-4.5-flash`), Google OAuth 2.0 / JWKS |
 
 ## Arah produk
 
@@ -150,7 +150,7 @@ gunakan IP LAN komputer pengembang. Release publik wajib menggunakan HTTPS.
 | | |
 | --- | --- |
 | APK Android | ⚠️ ISI tautan unduhan APK |
-| Backend API | ⚠️ ISI `https://...` (healthcheck: `/health`) |
+| Backend API | https://kerjaqueue-production.up.railway.app (healthcheck: `/health`) |
 
 ### Akun demonstrasi
 
@@ -158,8 +158,8 @@ Saat database baru masih kosong, backend mengisi lowongan contoh dan dua akun de
 
 | Email | Kata sandi | Peran |
 | --- | --- | --- |
-| `pencari@kerjaqueue.local` | ⚠️ ISI | pencari kerja |
-| `pemberi@kerjaqueue.local` | ⚠️ ISI | pemberi kerja |
+| `pencari@kerjaqueue.local` | `Kerja-7ndUfDGD!` | pencari kerja |
+| `pemberi@kerjaqueue.local` | `Kerja-7ndUfDGD!` | pemberi kerja |
 
 Kata sandi kedua akun diambil dari `DEMO_PASSWORD` di server. Untuk server penilaian,
 biarkan `SEED=true` dan pakai `DEMO_PASSWORD` baru yang hanya dipakai untuk akun demo
@@ -190,7 +190,7 @@ Google didaftarkan, email + kata sandi tetap tersedia.
 1. Cabut/rotasi key Z.ai yang pernah ditempel di chat. Key itu dianggap bocor dan
 tidak aman digunakan kembali.
 2. Isi key baru sebagai environment variable/secret di server: `ZAI_API_KEY`.
-3. Pastikan model `glm-4.7-flash` aktif di akun Z.ai. Model default dapat diganti
+3. Server penilaian memakai `ZAI_MODEL=glm-4.5-flash` karena `glm-4.7-flash` (default kode) sedang kelebihan beban di Z.ai. Model default dapat diganti
 dengan `ZAI_MODEL` tanpa build ulang aplikasi.
 
 API mengirim prompt, riwayat percakapan, ringkasan profil, dan lowongan teratas ke
@@ -245,7 +245,7 @@ onboarding, feed, lamar, chat, asisten lokal, profil, serta sign-out.
 
 | Layanan / model | Bagian produk | Data yang dikirim |
 | --- | --- | --- |
-| Z.ai Chat Completions, model `glm-4.7-flash` | Tab Asisten: menjawab pertanyaan pencari kerja tentang lowongan yang cocok | Pertanyaan, riwayat percakapan, nama, keahlian, kecamatan, upah minimum, dan 5 lowongan teratas. Email, nomor telepon, dan foto tidak dikirim. |
+| Z.ai Chat Completions, model `glm-4.5-flash` | Tab Asisten: menjawab pertanyaan pencari kerja tentang lowongan yang cocok | Pertanyaan, riwayat percakapan, nama, keahlian, kecamatan, upah minimum, dan 5 lowongan teratas. Email, nomor telepon, dan foto tidak dikirim. |
 
 Panggilan ke Z.ai hanya dilakukan oleh backend; API key tidak ada di aplikasi. Jika
 Z.ai tidak tersedia atau kuota harian habis, aplikasi memberi jawaban lokal yang
@@ -254,9 +254,10 @@ dihitung dari skor kecocokan di `lib/application/ask_assistant.dart`.
 **Dalam proses pengembangan**
 
 - Claude (Anthropic) melalui Claude Code dipakai untuk review kode, perbaikan izin
-  `INTERNET` Android dan dashboard pemberi kerja, serta penyusunan README ini.
-- ⚠️ ISI alat AI lain yang dipakai tim (nama alat dan bagian yang dibantu), atau hapus
-  baris ini jika tidak ada.
+  `INTERNET` Android dan dashboard pemberi kerja, deploy backend, perombakan
+  tampilan sesuai `DESIGN.md`, serta penyusunan README ini.
+- DeepSeek, Gemini (Google), dan ChatGPT (OpenAI) dipakai tim sebagai asisten
+  selama pengembangan: diskusi ide, penulisan dan perbaikan kode, serta teks aplikasi.
 
 Seluruh kode hasil bantuan AI ditinjau dan menjadi tanggung jawab tim.
 
