@@ -100,6 +100,8 @@ assistantRoutes.post('/', async (c) => {
     ],
     temperature: 0.6,
     max_tokens: 400,
+    // Mode berpikir GLM menambah ±10 detik; jawaban singkat Asisten tidak memerlukannya.
+    thinking: { type: 'disabled' },
   };
 
   let upstream: Response;
