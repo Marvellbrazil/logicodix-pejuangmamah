@@ -302,12 +302,11 @@ class _Cover extends StatelessWidget {
     return Stack(
       clipBehavior: Clip.none,
       children: [
-        // Pita warna brand polos; gradien dibuang karena tidak membawa makna.
-        Container(height: 72, color: Accent.teal),
+        // Tanpa pita warna: kepala profil cukup avatar dan nama di atas kertas.
         Padding(
-          padding: const EdgeInsets.fromLTRB(Space.lg, 70, Space.lg, 0),
+          padding: const EdgeInsets.fromLTRB(Space.lg, 56, Space.lg, 0),
           child: Row(
-            crossAxisAlignment: CrossAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Container(
                 decoration: BoxDecoration(
@@ -326,7 +325,7 @@ class _Cover extends StatelessWidget {
               const SizedBox(width: Space.md),
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.only(top: Space.sm),
+                  padding: EdgeInsets.zero,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
