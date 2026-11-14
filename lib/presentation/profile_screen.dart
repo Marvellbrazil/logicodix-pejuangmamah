@@ -303,7 +303,7 @@ class _Cover extends StatelessWidget {
       clipBehavior: Clip.none,
       children: [
         // Pita warna brand polos; gradien dibuang karena tidak membawa makna.
-        Container(height: 108, color: Accent.teal),
+        Container(height: 84, color: Accent.teal),
         Padding(
           padding: const EdgeInsets.fromLTRB(Space.lg, 70, Space.lg, 0),
           child: Row(
